@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">basecompose</string>
+    <string name="api_error_no_internet">No internet connection. Please check your network settings.</string>
+    <string name="api_error_request_timeout">The request took too long to respond. Please try again.</string>
+    <string name="api_error_too_many_requests">Too many requests sent. Please wait a moment and try again.</string>
+    <string name="api_error_connection_timeout">Connection timed out. Please check your network and try again.</string>
+    <string name="api_error_payload_too_large">The data sent is too large. Please reduce the file size or data.</string>
+    <string name="api_error_unauthorized">You are not authorized. Please log in to continue.</string>
+    <string name="api_error_forbidden">You don’t have permission to access this resource.</string>
+    <string name="api_error_not_found">The requested resource could not be found.</string>
+    <string name="api_error_server_error">Server error. Please try again later.</string>
+    <string name="api_error_serialization">An error occurred while processing data. Please try again.</string>
+    <string name="api_error_unknown">An unexpected error occurred. Please try again.</string>
+    <string name="api_error_no_session_info">Session information is missing. Please log in again.</string>
+    <string name="api_error_retry">Retry</string>
+    <string name="api_error_upload_failed">Uploaded failed</string>
+    <string name="error_redirect">There are multiple options for the requested resource</string>
+    <string name="error_unauthorized">Unauthorized</string>
+    <string name="error_request_timed_out">The request timed out</string>
+    <string name="error_conflict_login">The email or password is incorrect</string>
+    <string name="error_conflict_sign_up">A user with that email already exists</string>
+    <string name="error_payload_too_large">The payload is too large</string>
+    <string name="error_client">Bad request</string>
+    <string name="error_server">Oops, something went wrong. Please try again</string>
+    <string name="error_unknown">An unknown error occurred</string>
+    <string name="agenda_item_type_unknown">Unknown agenda item type</string>
+    <string name="error_empty_photo_uri">Photo uri is empty or null</string>
+
+    <string name="error_disk_full">Disk is full</string>
+    <string name="error_not_found">Not found</string>
+    <string name="error_user_is_logged_out">User is logged out</string>
+    <string name="error_cannot_fetch_users">Cannot fetch users in offline mode</string>
+    <string name="error_cannot_offline_update_event_as_attendee">You cannot offline update an event as an attendee</string>
+    <string name="error_no_internet_connection">Cannot perform operation. There is no internet access</string>
+
+    <string name="photo_too_large">Photo is larger than 1MB, cannot be uploaded</string>
+
 </resources>
