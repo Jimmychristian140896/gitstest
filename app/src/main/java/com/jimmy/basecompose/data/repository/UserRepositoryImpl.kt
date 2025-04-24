@@ -26,7 +26,7 @@ class UserRepositoryImpl(
     }
 
     override suspend fun upsertUser(user: User): Result<Empty, DataError> {
-        val result = safeCall<Empty> {
+        /*val result = safeCall<Empty> {
             client.delete(
                 urlString = constructRoute("/user")
             ) {
@@ -43,7 +43,8 @@ class UserRepositoryImpl(
             is Result.Success -> {
                 return Result.Success(Empty())
             }
-        }
+        }*/
+        return Result.Success(Empty())
 
     }
 

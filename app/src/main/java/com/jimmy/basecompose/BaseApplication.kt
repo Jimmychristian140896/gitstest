@@ -1,6 +1,8 @@
 package com.jimmy.basecompose
 
 import android.app.Application
+import com.jimmy.basecompose.core.auth.Auth0Config
+import com.jimmy.basecompose.data.Constant
 import com.jimmy.basecompose.di.appModule
 import com.jimmy.basecompose.di.databaseModule
 import com.jimmy.basecompose.di.networkModule
@@ -24,5 +26,11 @@ class BaseApplication: Application() {
                 viewModelModule
             )
         }
+        Auth0Config.init(
+            context = this,
+            domain = Constant.AUTH0_DOMAIN_ID,
+            clientId = Constant.AUTH0_CLIENT_ID
+        )
+        //Auth0Config.init(this)
     }
 }

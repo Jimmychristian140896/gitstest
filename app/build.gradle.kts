@@ -21,6 +21,10 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+        manifestPlaceholders["auth0Domain"] =  "@string/com_auth0_domain"
+        manifestPlaceholders["auth0Scheme"] =  "@string/com_auth0_scheme"
+        //manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "@string/com_auth0_scheme"]
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -31,10 +35,12 @@ android {
         val properties = Properties()
         properties.load(apiProperties.inputStream())
 
-        buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
-        buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
+        buildConfigField("String", "BASE_URL", "\"https://api.spaceflightnewsapi.net/v4\"")
+        //buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
 
         multiDexEnabled = true
+
+
     }
 
     room {
@@ -172,5 +178,9 @@ dependencies {
     testImplementation("io.insert-koin:koin-android-test")
 
 
+
+    implementation(libs.androidx.material.icons.core)
+    implementation(libs.androidx.material.icons.extended)
+    implementation("com.auth0.android:auth0:2.11.0")
 
 }

@@ -14,20 +14,23 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jimmy.basecompose.core.composable.ObserveAsEvents
 import com.jimmy.basecompose.core.ui.SnackBarController
 import com.jimmy.basecompose.navigation.AppNavigation
 import com.jimmy.basecompose.ui.theme.BasecomposeTheme
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.getKoin
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel = getKoin().get<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,7 @@ class MainActivity : ComponentActivity() {
             BasecomposeTheme {
                 val snackbarHostState = remember { SnackbarHostState() }
                 val scope = rememberCoroutineScope()
+                val state by viewModel.state.collectAsStateWithLifecycle()
 
                 ObserveAsEvents(
                     flow = SnackBarController.events,
@@ -67,7 +71,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AppNavigation(
                         modifier = Modifier
-                            .padding(innerPadding)
+                            .padding(innerPadding),
+                        isLogin = state.isLoggedIn
                     )
                 }
             }

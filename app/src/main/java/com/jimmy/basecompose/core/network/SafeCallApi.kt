@@ -21,7 +21,7 @@ import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 
 
-suspend inline fun <reified T> safeCall(execute: () -> HttpResponse): com.jimmy.basecompose.core.data.Result<T, DataError.HttpError> {
+suspend inline fun <reified T> safeCall(execute: () -> HttpResponse): Result<T, DataError.HttpError> {
     val response = try {
         execute()
     } catch (e: IOException) {

@@ -1,0 +1,58 @@
+package com.jimmy.basecompose.data.repository
+
+import android.content.Context
+import com.auth0.android.authentication.AuthenticationAPIClient
+import com.jimmy.basecompose.core.auth.Auth0Config
+import com.jimmy.basecompose.core.data.DataError
+import com.jimmy.basecompose.core.data.Empty
+import com.jimmy.basecompose.core.data.Result
+import com.jimmy.basecompose.data.local.datastore.SessionManager
+import com.jimmy.basecompose.domain.repository.AuthRepository
+
+class AuthRepositoryImpl(
+    private val context: Context,
+    private val sessionManager: SessionManager
+): AuthRepository {
+    override suspend fun login(username: String, password: String): Result<Empty, DataError> {
+        try {
+            val authClient = AuthenticationAPIClient(Auth0Config.auth0)
+            val credentials =
+                authClient.login(username, password, "Username-Password-Authentication").validateClaims().await()
+            sessionManager.saveIsLogin(context, true)
+            sessionManager.saveUser(context, credentials.user.name ?: "test")
+            return Result.Success(Empty())
+        }catch (e: Exception) {
+            return Result.Error(DataError.HttpError.CONFLICT_LOGIN)
+        }
+
+    }
+
+    override suspend fun register(
+        name: String,
+        username: String,
+        password: String
+    ): Result<Empty, DataError> {
+        try {
+            val authClient = AuthenticationAPIClient(Auth0Config.auth0)
+            authClient.signUp(email = username, password = password,
+                    username = username, connection = "Username-Password-Authentication",
+                ).addParameter("name", name).validateClaims().await()
+            return Result.Success(Empty())
+        }catch (e: Exception) {
+            return Result.Error(DataError.HttpError.CONFLICT_SIGN_UP)
+        }
+    }
+
+    override suspend fun getName(): Result<String, DataError> {
+        return Result.Success(sessionManager.getUser(context) ?: "")
+    }
+
+    override suspend fun logout(): Result<Empty, DataError> {
+        try {
+            sessionManager.clearSession(context)
+            return Result.Success(Empty())
+        }catch (e: Exception) {
+            return Result.Error(DataError.HttpError.CONFLICT_SIGN_UP)
+        }
+    }
+}
