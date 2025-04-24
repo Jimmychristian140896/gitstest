@@ -20,5 +20,13 @@ data class ListArticleState(
 
 enum class SortType {
     ASC,
-    DESC
+    DESC;
+
+    fun getDisplayName(): String {
+        return when (this) {
+            ASC -> "Oldest"
+            DESC -> "Newest"
+        }
+
+    }
 }

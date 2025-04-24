@@ -33,8 +33,8 @@ class ExtensionTest {
 
     @Test
     fun `getFirstSentence should return sentence until first period`() {
-        val summary = "NASA’s budget dropped. It shocked the world. Many were disappointed."
-        val expected = "NASA’s budget dropped."
+        val summary = "NASA’s overall science budget in the FY25 request is nearly \$1 billion less than what the agency expected last year it would have available. While MSR’s problems has attracted the most attention, the pain is being felt across the science mission directorate."
+        val expected = "NASA’s overall science budget in the FY25 request is nearly \$1 billion less than what the agency expected last year it would have available."
         val result = summary.getFirstSentence()
         assertEquals(expected, result)
     }

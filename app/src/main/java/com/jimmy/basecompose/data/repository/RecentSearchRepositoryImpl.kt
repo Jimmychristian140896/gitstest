@@ -8,21 +8,20 @@ import com.jimmy.basecompose.data.local.datastore.RecentSearchManager
 import com.jimmy.basecompose.domain.repository.RecentSearchRepository
 
 class RecentSearchRepositoryImpl(
-    private val context: Context,
     private val recentSearchManager: RecentSearchManager
 ): RecentSearchRepository {
     override suspend fun getRecentSearches(): Result<List<String>, DataError> {
-        return Result.Success(recentSearchManager.getRecentSearches(context = context))
+        return Result.Success(recentSearchManager.getRecentSearches())
     }
 
     override suspend fun addRecentSearch(search: String): Result<Empty, DataError> {
-        recentSearchManager.saveSearch(context, search)
+        recentSearchManager.saveSearch(search)
         return Result.Success(Empty())
 
     }
 
     override suspend fun deleteRecentSearch(search: String): Result<Empty, DataError> {
-        recentSearchManager.deleteSearch(context, search)
+        recentSearchManager.deleteSearch(search)
         return Result.Success(Empty())
     }
 }

@@ -7,7 +7,6 @@ import com.jimmy.basecompose.data.remote.dto.EventDto
 import com.jimmy.basecompose.data.remote.dto.LaunchDto
 import com.jimmy.basecompose.data.remote.dto.ReportDto
 import com.jimmy.basecompose.data.remote.dto.SocialDto
-import com.jimmy.basecompose.data.remote.dto.UserDto
 import com.jimmy.basecompose.domain.model.Article
 import com.jimmy.basecompose.domain.model.ArticleType
 import com.jimmy.basecompose.domain.model.Author
@@ -16,14 +15,6 @@ import com.jimmy.basecompose.domain.model.Launch
 import com.jimmy.basecompose.domain.model.Social
 import com.jimmy.basecompose.domain.model.User
 
-fun UserDto.toUser() = User(
-    username = username,
-    password = password
-)
-fun User.toUserDto() = UserDto(
-    username = username,
-    password = password
-)
 
 fun SocialDto.toSocial() = Social(
     bluesky = bluesky,

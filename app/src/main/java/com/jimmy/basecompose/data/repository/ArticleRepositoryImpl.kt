@@ -10,7 +10,6 @@ import com.jimmy.basecompose.data.remote.dto.ArticleDto
 import com.jimmy.basecompose.data.remote.dto.BasePagingResponse
 import com.jimmy.basecompose.domain.mappers.toArticle
 import com.jimmy.basecompose.domain.mappers.toArticleEntity
-import com.jimmy.basecompose.domain.mappers.toUserEntity
 import com.jimmy.basecompose.domain.model.Article
 import com.jimmy.basecompose.domain.model.ArticleType
 import com.jimmy.basecompose.domain.repository.ArticleRepository

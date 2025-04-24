@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.jimmy.basecompose.core.composable.ObserveAsEvents
 import com.jimmy.basecompose.domain.model.ArticleType
@@ -33,20 +32,29 @@ fun HomeScreenRoot(
     ObserveAsEvents(viewModel.eventChannel) { event ->
         when (event) {
             is HomeEvent.OnArticleClick -> {
-                navHostController.navigate(Route.Detail(event.article.type, event.article.id))
+                navHostController.navigate(
+                    Route.DetailArticle(
+                        event.article.type,
+                        event.article.id
+                    )
+                )
             }
+
             HomeEvent.OnSeeMoreArticleClick -> {
-                navHostController.navigate(Route.List(ArticleType.ARTICLE))
+                navHostController.navigate(Route.ListArticle(ArticleType.ARTICLE))
 
             }
+
             HomeEvent.OnSeeMoreBlogClick -> {
-                navHostController.navigate(Route.List(ArticleType.BLOG))
+                navHostController.navigate(Route.ListArticle(ArticleType.BLOG))
 
             }
+
             HomeEvent.OnSeeMoreReportClick -> {
-                navHostController.navigate(Route.List(ArticleType.REPORT))
+                navHostController.navigate(Route.ListArticle(ArticleType.REPORT))
 
             }
+
             else -> {
             }
         }

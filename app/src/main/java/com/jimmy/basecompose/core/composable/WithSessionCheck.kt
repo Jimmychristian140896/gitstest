@@ -9,7 +9,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import com.jimmy.basecompose.core.data.onSuccess
 import com.jimmy.basecompose.data.local.datastore.SessionManager
+import com.jimmy.basecompose.domain.repository.AuthRepository
+import com.jimmy.basecompose.domain.repository.SessionRepository
 import com.jimmy.basecompose.navigation.Route
 import org.koin.java.KoinJavaComponent.inject
 
@@ -24,19 +27,23 @@ fun WithSessionCheck(
     val coroutineScope = rememberCoroutineScope()
     var isSessionValid by remember { mutableStateOf<Boolean?>(null) }
 
-    val sessionManager: SessionManager by inject(SessionManager::class.java)
+    val authRepository: AuthRepository by inject(AuthRepository::class.java)
+    val sessionRepository: SessionRepository by inject(SessionRepository::class.java)
 
     LaunchedEffect(Unit) {
-        val loginTime = sessionManager.getLoginTime(context)
-        val isExpired = loginTime == null || (System.currentTimeMillis() - loginTime) > 10 * 60 * 1000
-        isSessionValid = !isExpired
+        sessionRepository.getLoginTime()
+            .onSuccess { loginTime->
+                val isExpired = loginTime == null || (System.currentTimeMillis() - loginTime) > 10 * 60 * 1000
+                isSessionValid = !isExpired
 
-        if (isExpired) {
-            sessionManager.clearSession(context)
-            navController.navigate(destinationIfLoggedOut) {
-                popUpTo(0) { inclusive = true }
+                if (isExpired) {
+                    authRepository.logout()
+                    navController.navigate(destinationIfLoggedOut) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
             }
-        }
+
     }
 
     if (isSessionValid == true) {

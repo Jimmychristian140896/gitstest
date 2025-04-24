@@ -5,7 +5,6 @@ import com.jimmy.basecompose.data.local.entity.AuthorEntity
 import com.jimmy.basecompose.data.local.entity.EventEntity
 import com.jimmy.basecompose.data.local.entity.LaunchEntity
 import com.jimmy.basecompose.data.local.entity.SocialEntity
-import com.jimmy.basecompose.data.local.entity.UserEntity
 import com.jimmy.basecompose.data.remote.dto.ArticleDto
 import com.jimmy.basecompose.data.remote.dto.AuthorDto
 import com.jimmy.basecompose.data.remote.dto.BlogDto
@@ -13,7 +12,6 @@ import com.jimmy.basecompose.data.remote.dto.EventDto
 import com.jimmy.basecompose.data.remote.dto.LaunchDto
 import com.jimmy.basecompose.data.remote.dto.ReportDto
 import com.jimmy.basecompose.data.remote.dto.SocialDto
-import com.jimmy.basecompose.data.remote.dto.UserDto
 import com.jimmy.basecompose.domain.model.Article
 import com.jimmy.basecompose.domain.model.ArticleType
 import com.jimmy.basecompose.domain.model.Author
@@ -22,14 +20,6 @@ import com.jimmy.basecompose.domain.model.Launch
 import com.jimmy.basecompose.domain.model.Social
 import com.jimmy.basecompose.domain.model.User
 
-fun UserEntity.toUser() = User(
-    username = username,
-    password = password
-)
-fun User.toUserEntity() = UserEntity(
-    username = username,
-    password = password
-)
 
 fun Social.toSocialEntity() = SocialEntity(
     bluesky = bluesky,

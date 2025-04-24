@@ -60,7 +60,6 @@ import com.auth0.android.result.Credentials
 import com.jimmy.basecompose.R
 import com.jimmy.basecompose.core.auth.Auth0Config
 import com.jimmy.basecompose.core.composable.ObserveAsEvents
-import com.jimmy.basecompose.core.composable.ValidationTextField
 import com.jimmy.basecompose.core.ui.showToast
 import com.jimmy.basecompose.navigation.Route
 import com.jimmy.basecompose.ui.theme.Green
@@ -193,6 +192,7 @@ fun LoginScreen(
                     )
                 }
             },
+            singleLine = true,
             visualTransformation = if (state.passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
@@ -212,7 +212,6 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
-            //.padding(horizontal = 16.dp, vertical = 8.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Green
             ),

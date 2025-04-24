@@ -7,9 +7,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +28,7 @@ import com.jimmy.basecompose.R
 import com.jimmy.basecompose.core.util.formatUtcToLocalDateTime
 import com.jimmy.basecompose.domain.model.Article
 import com.jimmy.basecompose.domain.model.ArticleType
+import com.jimmy.basecompose.ui.theme.White
 
 @Composable
 fun ArticleItem(
@@ -30,13 +36,20 @@ fun ArticleItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .clickable {
                 onClick()
-            }
+            },
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = White
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
+        )
     ) {
         AsyncImage(
             model = article.imageUrl,
@@ -48,56 +61,77 @@ fun ArticleItem(
                 .height(200.dp),
             contentScale = ContentScale.Crop
         )
-        Text(
-            text = article.title,
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier
-        )
-        Text(
-            text = article.publishedAt.formatUtcToLocalDateTime(),
-            style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier
-        )
-        if (article.type == ArticleType.ARTICLE || article.type == ArticleType.BLOG) {
-            Row(
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = article.title,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Column(
+            )
+            Text(
+                text = article.publishedAt.formatUtcToLocalDateTime(),
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier
+            )
+            if (article.type == ArticleType.ARTICLE || article.type == ArticleType.BLOG) {
+                Row(
                     modifier = Modifier
-                        .weight(1f)
                         .fillMaxWidth()
                 ) {
-                    Text(
-                        text = "Launches",
-                        style = MaterialTheme.typography.headlineMedium,
+                    Column(
                         modifier = Modifier
-                    )
-                    article.launches?.forEach {
+                            .weight(1f)
+                            .fillMaxWidth()
+                    ) {
                         Text(
-                            text = it.provider,
-                            style = MaterialTheme.typography.bodyMedium,
+                            text = "Launches",
+                            style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                         )
+                        if (article.launches.isNullOrEmpty()) {
+                            Text(
+                                text = "-",
+                                style = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier
+                            )
+                        }
+                        article.launches?.forEach {
+                            Text(
+                                text = it.provider,
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                            )
+                        }
                     }
-                }
-                Spacer(Modifier.width(16.dp))
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Events",
-                        style = MaterialTheme.typography.headlineMedium,
+                    Spacer(Modifier.width(16.dp))
+                    Column(
                         modifier = Modifier
-                    )
-                    article.events?.forEach {
+                            .weight(1f)
+                            .fillMaxWidth()
+                    ) {
                         Text(
-                            text = it.provider,
-                            style = MaterialTheme.typography.bodyMedium,
+                            text = "Events",
+                            style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
                         )
+
+                        if (article.events.isNullOrEmpty()) {
+                            Text(
+                                text = "-",
+                                style = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier
+                            )
+                        }
+                        article.events?.forEach {
+                            Text(
+                                text = it.provider,
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                            )
+                        }
                     }
                 }
             }

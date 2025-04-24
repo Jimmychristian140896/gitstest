@@ -98,20 +98,24 @@ fun SearchArticleScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                contentDescription = "Back",
-                tint = Black,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clickable {
-                        onAction(SearchArticleAction.GoBack)
-                    }
-            )
+            IconButton(
+                onClick = {
+                    onAction(SearchArticleAction.GoBack)
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                    contentDescription = "Back",
+                    tint = Black,
+                    modifier = Modifier
+                        .size(32.dp)
+
+                )
+            }
 
 
             Box(
@@ -119,7 +123,7 @@ fun SearchArticleScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(LightDivider) // Light gray background
+                    .background(LightDivider)
             ) {
                 OutlinedTextField(
                     value = state.search,
@@ -159,7 +163,7 @@ fun SearchArticleScreen(
                     keyboardActions = KeyboardActions(
                         onSearch = {
                             onAction(SearchArticleAction.SearchClicked)
-                            keyboardController?.hide() // Hide keyboard
+                            keyboardController?.hide()
                         }
                     ),
                 )

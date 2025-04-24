@@ -10,16 +10,15 @@ import com.jimmy.basecompose.data.local.datastore.SessionManager
 import com.jimmy.basecompose.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(
-    private val context: Context,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager,
+    private val authClient: AuthenticationAPIClient
 ): AuthRepository {
     override suspend fun login(username: String, password: String): Result<Empty, DataError> {
         try {
-            val authClient = AuthenticationAPIClient(Auth0Config.auth0)
             val credentials =
                 authClient.login(username, password, "Username-Password-Authentication").validateClaims().await()
-            sessionManager.saveIsLogin(context, true)
-            sessionManager.saveUser(context, credentials.user.name ?: "test")
+            sessionManager.saveIsLogin(true)
+            sessionManager.saveUser(credentials.user.name ?: "")
             return Result.Success(Empty())
         }catch (e: Exception) {
             return Result.Error(DataError.HttpError.CONFLICT_LOGIN)
@@ -33,7 +32,6 @@ class AuthRepositoryImpl(
         password: String
     ): Result<Empty, DataError> {
         try {
-            val authClient = AuthenticationAPIClient(Auth0Config.auth0)
             authClient.signUp(email = username, password = password,
                     username = username, connection = "Username-Password-Authentication",
                 ).addParameter("name", name).validateClaims().await()
@@ -44,15 +42,15 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun getName(): Result<String, DataError> {
-        return Result.Success(sessionManager.getUser(context) ?: "")
+        return Result.Success(sessionManager.getUser() ?: "")
     }
 
     override suspend fun logout(): Result<Empty, DataError> {
         try {
-            sessionManager.clearSession(context)
+            sessionManager.clearSession()
             return Result.Success(Empty())
         }catch (e: Exception) {
-            return Result.Error(DataError.HttpError.CONFLICT_SIGN_UP)
+            return Result.Error(DataError.HttpError.UNKNOWN)
         }
     }
 }

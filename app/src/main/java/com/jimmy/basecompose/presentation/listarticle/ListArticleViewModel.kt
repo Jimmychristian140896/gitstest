@@ -28,11 +28,10 @@ class ListArticleViewModel(
     private val blogRepository: BlogRepository,
     private val reportRepository: ReportRepository,
     private val newsSiteRepository: NewsSiteRepository,
-    private val articleDao: ArticleDao,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val routeList = savedStateHandle.toRoute<Route.List>()
-    val type = routeList.type
+    val routeListArticle = savedStateHandle.toRoute<Route.ListArticle>()
+    val type = routeListArticle.type
     private var hasLoadedInitialData = false
 
     private val _state = MutableStateFlow(ListArticleState())
@@ -40,7 +39,6 @@ class ListArticleViewModel(
         .onStart {
             if (!hasLoadedInitialData) {
                 /** Load initial data here **/
-                //articleDao.deleteArticlesByType(ArticleType.ARTICLE)
 
                 initState()
                 getLastLoadedArticles()
@@ -77,7 +75,11 @@ class ListArticleViewModel(
                         filter = action.filter,
                         isShowFilterDialog = false
                     ) }
-                    getList()
+                    getList(
+                        search = _state.value.search,
+                        filter = action.filter,
+                        sort = _state.value.sort
+                    )
                 }
             }
             ListArticleAction.OnHideFilterDialog -> {
@@ -97,11 +99,6 @@ class ListArticleViewModel(
             ListArticleAction.OnSearch -> {
                 viewModelScope.launch {
                     _eventChannel.send(ListArticleEvent.OnSearch(_state.value.search ?: ""))
-
-                    /*_state.update { it.copy(
-                        recentSearch = it.recentSearch + it.search
-                    ) }
-                    getList()*/
                 }
             }
             is ListArticleAction.OnSearchChange -> {
@@ -109,7 +106,11 @@ class ListArticleViewModel(
                     _state.update { it.copy(
                         search = action.search
                     ) }
-                    getList()
+                    getList(
+                        search = action.search,
+                        filter = _state.value.filter,
+                        sort = _state.value.sort
+                    )
                 }
             }
             ListArticleAction.OnSort -> {
@@ -125,7 +126,11 @@ class ListArticleViewModel(
                         sort = action.sortType,
                         isShowSortDialog = false
                     ) }
-                    getList()
+                    getList(
+                        search = _state.value.search,
+                        filter = _state.value.filter,
+                        sort = action.sortType
+                    )
                 }
             }
 
@@ -166,7 +171,7 @@ class ListArticleViewModel(
                 ArticleType.BLOG -> blogRepository.getLastLoadedBlogs()
                 ArticleType.REPORT -> reportRepository.getLastLoadedReports()
             }.onSuccess { articles ->
-                if(articles == null || articles.isEmpty()) {
+                if(articles.isEmpty()) {
                     getList()
                 } else {
                     _state.update {
@@ -188,7 +193,11 @@ class ListArticleViewModel(
         }
     }
 
-    private fun getList() {
+    private fun getList(
+        search: String? = null,
+        filter: List<String>? = null,
+        sort: SortType? = null
+    ) {
         viewModelScope.launch {
             _state.update { it.copy(
                 isLoadingArticle = true
@@ -196,20 +205,21 @@ class ListArticleViewModel(
             when (type) {
                 ArticleType.ARTICLE -> articleRepository.getArticles(
                     saveToLocal = true,
-                    search = state.value.search,
-                    filter = state.value.filter,
-                    sort = state.value.sort
+                    search = search,
+                    filter = filter,
+                    sort = sort
                 )
                 ArticleType.BLOG -> blogRepository.getBlogs(
                     saveToLocal = true,
-                    search = state.value.search,
-                    filter = state.value.filter,
-                    sort = state.value.sort)
+                    search = search,
+                    filter = filter,
+                    sort = sort
+                )
                 ArticleType.REPORT -> reportRepository.getReports(
                     saveToLocal = true,
-                    search = state.value.search,
-                    filter = state.value.filter,
-                    sort = state.value.sort
+                    search = search,
+                    filter = filter,
+                    sort = sort
                 )
             }.onSuccess { articles ->
                 _state.update {

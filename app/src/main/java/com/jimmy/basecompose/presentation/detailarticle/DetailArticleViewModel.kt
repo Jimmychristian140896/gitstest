@@ -28,9 +28,9 @@ class DetailArticleViewModel(
     private val reportRepository: ReportRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val routeDetail = savedStateHandle.toRoute<Route.Detail>()
-    val id = routeDetail.id
-    val type = routeDetail.type
+    val routeDetailArticle = savedStateHandle.toRoute<Route.DetailArticle>()
+    val id = routeDetailArticle.id
+    val type = routeDetailArticle.type
 
     private var hasLoadedInitialData = false
 
@@ -60,40 +60,46 @@ class DetailArticleViewModel(
                     _eventChannel.send(DetailArticleEvent.NavigateBack)
                 }
             }
+
             else -> TODO("Handle actions")
         }
     }
 
     private fun initState() {
-        _state.update { it.copy(
-            id = id,
-            type = type
-        ) }
+        _state.update {
+            it.copy(
+                id = id,
+                type = type
+            )
+        }
     }
 
     private fun getDetail() {
         viewModelScope.launch {
-            _state.update { it.copy(
-                isLoading = true
-            ) }
+            _state.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
             when (type) {
                 ArticleType.ARTICLE -> articleRepository.getArticleById(id)
                 ArticleType.BLOG -> blogRepository.getBlogById(id)
                 ArticleType.REPORT -> reportRepository.getReportById(id)
             }.onSuccess { article ->
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            article = article
-                        )
-                    }
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        article = article
+                    )
                 }
+            }
                 .onFailure { error ->
                     _state.update {
                         it.copy(
                             isLoading = false,
                             error = error.asUiText()
-                        ) }
+                        )
+                    }
                 }
 
         }

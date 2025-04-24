@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.jimmy.basecompose.data.local.entity.ArticleEntity
-import com.jimmy.basecompose.data.local.entity.UserEntity
 import com.jimmy.basecompose.domain.model.ArticleType
 
 @Dao

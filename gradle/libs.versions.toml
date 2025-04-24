@@ -1,5 +1,8 @@
 [versions]
 agp = "8.7.2"
+auth0 = "2.11.0"
+coilCompose = "2.1.0"
+datetimeVersion = "0.9.0"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -36,11 +39,16 @@ hilt-work = "1.0.0"
 ktor = "2.3.12"
 ktorClientLogging = "2.3.8"
 materialIconsCore = "1.5.0"
+koinBom = "3.5.0"
+
 
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+auth0 = { module = "com.auth0.android:auth0", version.ref = "auth0" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+datetime = { module = "io.github.vanpra.compose-material-dialogs:datetime", version.ref = "datetimeVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -95,6 +103,19 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 androidx-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCore" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsCore" }
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-android-compat = { module = "io.insert-koin:koin-android-compat" }
+koin-android-test = { module = "io.insert-koin:koin-android-test" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation" }
+koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation" }
+koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+koin-compose = { module = "io.insert-koin:koin-compose" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-ktor = { module = "io.insert-koin:koin-ktor" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

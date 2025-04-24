@@ -1,34 +1,25 @@
 package com.jimmy.basecompose.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.jimmy.basecompose.MainViewModel
 import com.jimmy.basecompose.core.composable.WithSessionCheck
-import com.jimmy.basecompose.domain.model.ArticleType
 import com.jimmy.basecompose.presentation.detailarticle.DetailArticleScreenRoot
 import com.jimmy.basecompose.presentation.home.HomeScreenRoot
 import com.jimmy.basecompose.presentation.listarticle.ListArticleScreenRoot
-import com.jimmy.basecompose.presentation.listarticle.ListArticleViewModel
 import com.jimmy.basecompose.presentation.login.LoginScreenRoot
 import com.jimmy.basecompose.presentation.register.RegisterScreenRoot
 import com.jimmy.basecompose.presentation.searcharticle.SearchArticleScreenRoot
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavigation(
-    navHostController: NavHostController = rememberNavController(),
     isLogin: Boolean,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController = rememberNavController()
+    ) {
     NavHost(
         modifier = modifier,
         navController = navHostController,
@@ -54,7 +45,7 @@ fun AppNavigation(
             }
 
         }
-        composable<Route.List> {
+        composable<Route.ListArticle> {
             WithSessionCheck(
                 navHostController
             ) {
@@ -63,7 +54,7 @@ fun AppNavigation(
                 )
             }
         }
-        composable<Route.Detail> {
+        composable<Route.DetailArticle> {
             WithSessionCheck(
                 navHostController
             ) {
@@ -72,7 +63,7 @@ fun AppNavigation(
                 )
             }
         }
-        composable<Route.Seach> {
+        composable<Route.SearchArticle> {
             WithSessionCheck(
                 navHostController
             ) {

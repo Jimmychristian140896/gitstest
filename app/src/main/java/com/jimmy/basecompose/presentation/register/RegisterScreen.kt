@@ -158,6 +158,7 @@ fun RegisterScreen(
             value = state.name,
             shape = RoundedCornerShape(4.dp),
             isError = state.nameError != null,
+            singleLine = true,
             supportingText = {
                 if (state.nameError != null) {
                     Text(
@@ -176,8 +177,9 @@ fun RegisterScreen(
 
         OutlinedTextField(
             value = state.username,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             isError = state.usernameError != null,
+            singleLine = true,
             supportingText = {
                 if (state.usernameError != null) {
                     Text(
@@ -198,6 +200,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = state.password,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
             isError = state.passwordError != null,
             supportingText = {
                 if (state.passwordError != null) {
@@ -227,8 +230,10 @@ fun RegisterScreen(
 
         OutlinedTextField(
             value = state.repeatPassword,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             shape = RoundedCornerShape(4.dp),
             isError = state.repeatPasswordError != null,
+            singleLine = true,
             supportingText = {
                 if (state.repeatPasswordError != null) {
                     Text(

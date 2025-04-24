@@ -53,6 +53,7 @@ fun DetailArticleScreenRoot(
             DetailArticleEvent.NavigateBack -> {
                 navHostController.navigateUp()
             }
+
             else -> {
             }
         }
@@ -126,7 +127,7 @@ fun DetailArticleScreen(
 
         }
 
-        if(state.isLoading) {
+        if (state.isLoading) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()

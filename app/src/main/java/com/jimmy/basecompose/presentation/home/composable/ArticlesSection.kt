@@ -30,7 +30,8 @@ fun ArticleSection(
     isLoading: Boolean,
     onArticleClick: (Article) -> Unit,
     onSeeMoreClick: () -> Unit,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
 
     Column(
         modifier = modifier
@@ -61,7 +62,7 @@ fun ArticleSection(
                 fontWeight = FontWeight.Bold
             )
         }
-        if(isLoading) {
+        if (isLoading) {
             Box(
                 modifier = Modifier
                     .padding(top = 16.dp)

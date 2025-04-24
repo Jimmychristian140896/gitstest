@@ -55,15 +55,19 @@ class HomeViewModel(
             is HomeAction.OnArticleClick -> {
                 _eventChannel.trySend(HomeEvent.OnArticleClick(action.article))
             }
+
             HomeAction.OnSeeMoreArticleClick -> {
                 _eventChannel.trySend(HomeEvent.OnSeeMoreArticleClick)
             }
+
             HomeAction.OnSeeMoreBlogClick -> {
                 _eventChannel.trySend(HomeEvent.OnSeeMoreBlogClick)
             }
+
             HomeAction.OnSeeMoreReportClick -> {
                 _eventChannel.trySend(HomeEvent.OnSeeMoreReportClick)
             }
+
             else -> TODO("Handle actions")
         }
     }
@@ -78,9 +82,11 @@ class HomeViewModel(
                 in 21..24 -> "Good Night"
                 else -> "Good Day"
             }
-            _state.update { it.copy(
-                greeting = greeting
-            ) }
+            _state.update {
+                it.copy(
+                    greeting = greeting
+                )
+            }
         }
     }
 
@@ -88,18 +94,22 @@ class HomeViewModel(
         viewModelScope.launch {
             authRepository.getName()
                 .onSuccess { user ->
-                    _state.update { it.copy(
-                        user = user
-                    ) }
+                    _state.update {
+                        it.copy(
+                            user = user
+                        )
+                    }
                 }
         }
     }
 
     private fun getArticles() {
         viewModelScope.launch {
-            _state.update { it.copy(
-                isLoadingArticle = true
-            ) }
+            _state.update {
+                it.copy(
+                    isLoadingArticle = true
+                )
+            }
             articleRepository.getArticles()
                 .onSuccess { articles ->
                     _state.update {
@@ -114,7 +124,8 @@ class HomeViewModel(
                         it.copy(
                             isLoadingArticle = false,
                             errorArticle = error.asUiText()
-                        ) }
+                        )
+                    }
                 }
 
         }
@@ -122,9 +133,11 @@ class HomeViewModel(
 
     private fun getBlogs() {
         viewModelScope.launch {
-            _state.update { it.copy(
-                isLoadingBlog = true
-            ) }
+            _state.update {
+                it.copy(
+                    isLoadingBlog = true
+                )
+            }
             blogRepository.getBlogs()
                 .onSuccess { blogs ->
                     _state.update {
@@ -139,7 +152,8 @@ class HomeViewModel(
                         it.copy(
                             isLoadingBlog = false,
                             errorBlog = error.asUiText()
-                        ) }
+                        )
+                    }
                 }
 
         }
@@ -147,9 +161,11 @@ class HomeViewModel(
 
     private fun getReports() {
         viewModelScope.launch {
-            _state.update { it.copy(
-                isLoadingReport = true
-            ) }
+            _state.update {
+                it.copy(
+                    isLoadingReport = true
+                )
+            }
             reportRepository.getReports()
                 .onSuccess { reports ->
                     _state.update {
@@ -164,7 +180,8 @@ class HomeViewModel(
                         it.copy(
                             isLoadingReport = false,
                             errorReport = error.asUiText()
-                        ) }
+                        )
+                    }
                 }
 
         }

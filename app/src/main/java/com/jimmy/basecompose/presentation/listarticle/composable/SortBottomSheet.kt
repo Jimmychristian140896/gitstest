@@ -62,7 +62,7 @@ fun SortBottomSheet(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = sortBy.name,
+                        text = sortBy.getDisplayName(),
                         fontSize = 12.sp,
                         color = Black,
                         modifier = Modifier

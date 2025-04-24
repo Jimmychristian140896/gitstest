@@ -8,7 +8,6 @@ import com.jimmy.basecompose.core.data.onSuccess
 import com.jimmy.basecompose.domain.repository.RecentSearchRepository
 import com.jimmy.basecompose.navigation.Route
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -16,13 +15,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class SearchArticleViewModel(
     private val recentSearchRepository: RecentSearchRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val routeSearch = savedStateHandle.toRoute<Route.Seach>()
+    val routeSearch = savedStateHandle.toRoute<Route.SearchArticle>()
     val search = routeSearch.search
 
     private var hasLoadedInitialData = false

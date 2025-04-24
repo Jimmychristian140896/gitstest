@@ -23,8 +23,6 @@ object HttpClientFactory {
     fun create(): HttpClient {
         val certificatePinner = CertificatePinner.Builder()
             .add("api.spaceflightnewsapi.net", "sha256/67oicpGf9++WuMMvVEdq/Q9HbNb7m0AhEnPlU54tQb8=")
-            //.add("api.spaceflightnewsapi.net", "sha256/kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=")
-            //.add("api.spaceflightnewsapi.net", "sha256/mEflZT5enoR1FuXLgYYGqnVEoZvmf9c2bVBpiOjYQ0c=")
             .build()
 
         val okHttpClient = OkHttpClient.Builder()
@@ -60,7 +58,6 @@ object HttpClientFactory {
 
             defaultRequest {
                 contentType(ContentType.Application.Json)
-                //header("x-api-key", BuildConfig.API_KEY)
 
             }
         }

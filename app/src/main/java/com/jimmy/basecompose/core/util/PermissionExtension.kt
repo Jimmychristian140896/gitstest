@@ -12,6 +12,6 @@ fun Context.hasNotificationPermission(): Boolean {
             android.Manifest.permission.POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
     } else {
-        true // permission otomatis granted untuk < Android 13
+        true
     }
 }

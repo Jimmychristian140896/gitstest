@@ -30,19 +30,17 @@ class SessionRepositoryImpl(
 
     override suspend fun saveLoginTime() {
         val now = System.currentTimeMillis()
-        sessionManager.saveIsLogin(context, true)
-        sessionManager.saveLoginTime(context, now)
+        sessionManager.saveIsLogin(true)
+        sessionManager.saveLoginTime(now)
         scheduleAutoLogout()
     }
 
     override suspend fun getLoginTime(): Result<Long?, DataError> {
-        return Result.Success(sessionManager.getLoginTime(context))
+        return Result.Success(sessionManager.getLoginTime())
     }
 
     override suspend fun isLogin(): Boolean {
-        return sessionManager.getIsLogin(
-            context
-        ) ?: false
+        return sessionManager.getIsLogin() ?: false
     }
 
 

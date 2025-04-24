@@ -4,8 +4,6 @@ import androidx.room.Room
 import com.jimmy.basecompose.data.local.database.BaseDatabase
 import com.jimmy.basecompose.data.local.datastore.RecentSearchManager
 import com.jimmy.basecompose.data.local.datastore.SessionManager
-import com.jimmy.basecompose.data.repository.UserRepositoryImpl
-import com.jimmy.basecompose.domain.repository.UserRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf

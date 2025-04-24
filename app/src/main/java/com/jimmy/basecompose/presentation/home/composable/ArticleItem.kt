@@ -31,7 +31,7 @@ fun ArticleItem(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .width(160.dp)
     ) {
         AsyncImage(

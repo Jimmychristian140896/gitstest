@@ -9,7 +9,6 @@ import com.jimmy.basecompose.core.data.onSuccess
 import com.jimmy.basecompose.domain.model.User
 import com.jimmy.basecompose.domain.repository.AuthRepository
 import com.jimmy.basecompose.domain.repository.SessionRepository
-import com.jimmy.basecompose.domain.repository.UserRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val userRepository: UserRepository,
     private val sessionRepository: SessionRepository,
     private val authRepository: AuthRepository
 ): ViewModel() {

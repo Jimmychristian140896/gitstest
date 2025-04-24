@@ -1,7 +1,6 @@
 package com.jimmy.basecompose.di
 
 import com.jimmy.basecompose.MainViewModel
-import com.jimmy.basecompose.domain.repository.UserRepository
 import com.jimmy.basecompose.presentation.detailarticle.DetailArticleViewModel
 import com.jimmy.basecompose.presentation.home.HomeViewModel
 import com.jimmy.basecompose.presentation.listarticle.ListArticleViewModel

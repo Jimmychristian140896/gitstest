@@ -11,9 +11,9 @@ sealed class Route {
     @Serializable
     data object Home: Route()
     @Serializable
-    data class List(val type: ArticleType): Route()
+    data class ListArticle(val type: ArticleType): Route()
     @Serializable
-    data class Detail(val type: ArticleType, val id: Int): Route()
+    data class DetailArticle(val type: ArticleType, val id: Int): Route()
     @Serializable
-    data class Seach(val search: String): Route()
+    data class SearchArticle(val search: String): Route()
 }
